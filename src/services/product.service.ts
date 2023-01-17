@@ -15,14 +15,23 @@ export default class ProductService {
             throw new HttpException(409, 'Product already exists')
             
         }
-        const createNewProduct = prisma.product.create({
-            data: {
-                name,
-                category,
-                status,
-                quantity, 
-            }
-        })
-        return createNewProduct
+        if (status == "ACTIVE" || status == "INACTIVE") {
+            const createNewProduct = prisma.product.create({
+                data: {
+                    name,
+                    category,
+                    status,
+                    quantity, 
+                }
+            })
+            return createNewProduct
+        }
+        else {
+            throw new HttpException(400, 'Status must be ACTIVE or INACTIVE')
+        }
+    }
+    public getAllProducts = async (): Promise<IProduct[]> => {
+        const allProducts = await prisma.product.findMany();
+        return allProducts;
     }
 }
