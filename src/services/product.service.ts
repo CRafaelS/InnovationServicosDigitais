@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { networkInterfaces } from 'os';
 import { IProduct } from '../interfaces/product.interface';
 import HttpException from '../utils/httpException';
 
@@ -33,5 +34,21 @@ export default class ProductService {
     public getAllProducts = async (): Promise<IProduct[]> => {
         const allProducts = await prisma.product.findMany();
         return allProducts;
+    }
+
+    public updateProduct = async (id: number, name: string, category: string, status: string, quantity: number): Promise<IProduct> => {
+        const updatedProducts = await prisma.product.update({
+            where: {
+                id,
+            },
+            data: {
+                name,
+                category,
+                status,
+                quantity,
+                updated_at: new Date()
+            }
+        });
+        return updatedProducts;
     }
 }
