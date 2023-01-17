@@ -51,4 +51,17 @@ export default class ProductService {
         });
         return updatedProducts;
     }
+
+    public getProductById = async (id: number): Promise<IProduct> => {
+        const product = await prisma.product.findUnique({
+            where: {
+                id
+            }
+        })
+        if (product == null) {
+            throw new HttpException(404, 'Not found this product')
+            
+        }
+        return product
+    }
 }
