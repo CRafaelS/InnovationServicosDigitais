@@ -64,4 +64,12 @@ export default class ProductService {
         }
         return product
     }
+
+    public deleteProduct =async (id: number) => {
+        await prisma.product.delete({
+            where: {
+                id
+            }
+        })
+    }
 }

@@ -30,4 +30,10 @@ export default class ProductController {
         const updatedProduct = await this._service.updateProduct(+id, name, category, status, quantity);
         return res.status(200).json(updatedProduct)
     }
+
+    public async deleteProduct(req: Request, res: Response) {
+        const { id } = req.params;
+        await this._service.deleteProduct(+id)
+        return res.status(200).json("Produto deletado")
+    }
 }

@@ -9,5 +9,6 @@ routers.post('/product', (req: Request, res: Response) => productController.crea
 routers.get('/product', (req: Request, res: Response) => productController.getAllProducts(req, res))
 routers.get('/product/:id', (req: Request, res: Response) => productController.GetById(req, res))
 routers.put('/product/:id', (req: Request, res: Response) => productController.updateProducts(req, res))
+routers.delete('/product/:id', (req: Request, res: Response) => productController.deleteProduct(req, res))
 
 export default routers;
